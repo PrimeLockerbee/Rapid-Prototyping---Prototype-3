@@ -18,11 +18,14 @@ public class Tank : Unit
 
     public override void Attack(Unit target)
     {
-        if (Vector2.Distance(transform.position, target.transform.position) <= attackRange)
+        if (target.GetType() != GetType()) // Check if the target is of a different type
         {
-            Debug.Log("Attacking at close range!");
+            if (Vector2.Distance(transform.position, target.transform.position) <= attackRange)
+            {
+                Debug.Log("Attacking at close range!");
 
-            target.TakeDamage(GetStrength());
+                target.TakeDamage(GetStrength());
+            }
         }
     }
 }

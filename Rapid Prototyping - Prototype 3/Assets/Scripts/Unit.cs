@@ -2,13 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Faction
+{
+    Player,
+    Enemy
+}
+
 public abstract class Unit : MonoBehaviour
 {
-    protected float baseStrength = 10f;
-    protected float baseHealth = 100f;
+    public Faction faction;
+
+    public float baseStrength = 10f;
+    public float baseHealth = 100f;
 
     private float strength;
-    private float health;
+    [SerializeField] private float health;
 
     public float attackRange = 1f;
 
@@ -20,10 +28,10 @@ public abstract class Unit : MonoBehaviour
     public float minY = -5f;
     public float maxY = 5f;
 
-    private Vector2 targetPosition;
+    public Vector2 targetPosition;
 
     protected float cooldownTimer;
-    private bool isMoving = false;
+    public bool isMoving = false;
     public float attackCooldown = 1f;
     public float attackDamage = 5f;
 
@@ -48,24 +56,26 @@ public abstract class Unit : MonoBehaviour
             return;
         }
 
-        cooldownTimer -= Time.deltaTime;
-
-        if (cooldownTimer <= 0)
+        if (cooldownTimer > 0f)
         {
-            Unit target = GetNearestEnemy();
-
-            if (target != null && Vector2.Distance(transform.position, target.transform.position) <= attackRange)
-            {
-                target.TakeDamage(attackDamage);
-                cooldownTimer = attackCooldown;
-            }
+            cooldownTimer -= Time.deltaTime;
         }
 
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-
-        if (Vector2.Distance(transform.position, targetPosition) < 0.1f)
+        Unit target = GetNearestEnemy();
+        if (target != null)
         {
-            targetPosition = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
+            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+
+            Attack(target);
+        }
+        else
+        {
+            transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+
+            if (Vector2.Distance(transform.position, targetPosition) < 0.1f)
+            {
+                targetPosition = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
+            }
         }
     }
 
@@ -111,11 +121,17 @@ public abstract class Unit : MonoBehaviour
 
     public virtual void Attack(Unit target)
     {
+        if (cooldownTimer > 0f)
+        {
+            return;
+        }
+
         float damage = GetStrength();
         target.TakeDamage(damage);
+        cooldownTimer = attackCooldown;
     }
 
-    private Unit GetNearestEnemy()
+    public Unit GetNearestEnemy()
     {
         Unit[] units = FindObjectsOfType<Unit>();
         Unit nearestEnemy = null;
@@ -123,7 +139,7 @@ public abstract class Unit : MonoBehaviour
 
         foreach (Unit unit in units)
         {
-            if (unit == this || unit.GetType() == GetType())
+            if (unit == this || unit.faction == faction)
             {
                 continue;
             }

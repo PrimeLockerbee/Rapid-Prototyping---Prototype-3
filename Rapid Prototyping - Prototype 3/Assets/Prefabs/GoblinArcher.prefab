@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2609863153053057500
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1007177535696401314}
+  m_Layer: 0
+  m_Name: ArrowSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1007177535696401314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2609863153053057500}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.234, y: -0.019, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2929652116537991117}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2929652116537991118
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,6 +43,7 @@ GameObject:
   - component: {fileID: 2929652116537991116}
   - component: {fileID: 2929652116537991119}
   - component: {fileID: 2929652116537991115}
+  - component: {fileID: 7399801179221756920}
   m_Layer: 0
   m_Name: GoblinArcher
   m_TagString: Archer
@@ -30,7 +62,8 @@ Transform:
   m_LocalPosition: {x: -5.419363, y: 2.4714355, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1007177535696401314}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -110,7 +143,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.44}
+  m_Size: {x: 0.440588, y: 0.44}
   m_EdgeRadius: 0
 --- !u!114 &2929652116537991115
 MonoBehaviour:
@@ -124,6 +157,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1bafe479cabb56418a0a4d4a81866e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 2
+  faction: 0
+  baseStrength: 10
+  baseHealth: 10
   attackRange: 10
-  expansionFactor: 8
+  speed: 5
+  minX: -5
+  maxX: 5
+  minY: -5
+  maxY: 5
+  targetPosition: {x: 0, y: 0}
+  isMoving: 0
+  attackCooldown: 0
+  attackDamage: 5
+  arrowPrefab: {fileID: 8036391697440159462, guid: d5d639c8bbab4e54890b2bb141d2394e, type: 3}
+  arrowSpawnPoint: {fileID: 1007177535696401314}
+  arrowSpeed: 10
+--- !u!50 &7399801179221756920
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2929652116537991118}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

@@ -327,6 +327,22 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1342986190}
+    - target: {fileID: 1468735268214887490, guid: 4d8c40fd95c28ab4591c8fd7aeaac7e7, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 304.1007
+      objectReference: {fileID: 0}
+    - target: {fileID: 1468735268214887490, guid: 4d8c40fd95c28ab4591c8fd7aeaac7e7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1468735268214887490, guid: 4d8c40fd95c28ab4591c8fd7aeaac7e7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 1468735268214887491, guid: 4d8c40fd95c28ab4591c8fd7aeaac7e7, type: 3}
+      propertyPath: m_text
+      value: Army Tactic Battler
+      objectReference: {fileID: 0}
     - target: {fileID: 1468735268717350793, guid: 4d8c40fd95c28ab4591c8fd7aeaac7e7, type: 3}
       propertyPath: m_Pivot.x
       value: 0

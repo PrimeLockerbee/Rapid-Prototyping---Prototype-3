@@ -16,6 +16,7 @@ public class UnitSpawner : MonoBehaviour
 
     private void Start()
     {
+
         mainCamera = Camera.main;
     }
 
@@ -51,13 +52,10 @@ public class UnitSpawner : MonoBehaviour
 
     public void StartGame()
     {
-        foreach (GameObject unit in units)
+        Unit[] allUnits = FindObjectsOfType<Unit>();
+        foreach (Unit unit in allUnits)
         {
-            Unit unitComponent = unit.GetComponent<Unit>();
-            if (unitComponent != null)
-            {
-                unitComponent.StartMoving();
-            }
+            unit.StartMoving();
         }
         startButton.SetActive(false);
     }

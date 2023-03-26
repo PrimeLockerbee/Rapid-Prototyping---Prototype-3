@@ -18,11 +18,13 @@ public class Soldier : Unit
 
     public override void Attack(Unit target)
     {
-        if (Vector2.Distance(transform.position, target.transform.position) <= attackRange)
-        {
-            Debug.Log("Attacking at close range!");
+        
+            if (Vector2.Distance(transform.position, target.transform.position) <= attackRange)
+            {
+                Debug.Log("Attacking at close range!");
 
-            target.TakeDamage(GetStrength());
-        }
+                target.TakeDamage(GetStrength());
+            }
+        
     }
 }
