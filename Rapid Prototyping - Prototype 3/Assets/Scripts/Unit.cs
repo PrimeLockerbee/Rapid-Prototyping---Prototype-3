@@ -29,6 +29,7 @@ public abstract class Unit : MonoBehaviour
     public float maxY = 5f;
 
     public Vector2 targetPosition;
+    public Vector2 startPosition;
 
     protected float cooldownTimer;
     public bool isMoving = false;
@@ -46,7 +47,7 @@ public abstract class Unit : MonoBehaviour
         strength = baseStrength * Mathf.Sqrt(numUnits);
         health = baseHealth * Mathf.Sqrt(numUnits);
 
-        targetPosition = transform.position;
+        startPosition = transform.position;
     }
 
     protected virtual void Update()
@@ -70,12 +71,7 @@ public abstract class Unit : MonoBehaviour
         }
         else
         {
-            transform.position = Vector2.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-
-            if (Vector2.Distance(transform.position, targetPosition) < 0.1f)
-            {
-                targetPosition = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
-            }
+            transform.position = Vector2.MoveTowards(transform.position, startPosition, speed * Time.deltaTime);
         }
     }
 
