@@ -1327,6 +1327,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bc053cd1cb2b0244ad10aafeddda42a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnerRef: {fileID: 341773105}
+  units: []
   _winScreen: {fileID: 883440910}
   _loseScreen: {fileID: 2093247634}
   _buttons: {fileID: 2502857}
@@ -1342,11 +1344,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 525c7df179ee7584eb5aaf600045175e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _managerRef: {fileID: 341773103}
   unitPrefabs:
   - {fileID: 6300308828747939212, guid: 4988efdb1bf78694185a85ccf1952aff, type: 3}
   - {fileID: 1358907212807688596, guid: 0ef94c9738fe2de45a970648851ae824, type: 3}
   - {fileID: 2929652116537991118, guid: cdd4e819594d08d448b11527659f99ed, type: 3}
   activeUnitIndex: 0
+  gameHasStarted: 0
   startButton: {fileID: 2032545250}
 --- !u!1 &400478312
 GameObject:
@@ -7333,7 +7337,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sdly all your units got killed. U can try again with a different combination
+  m_text: Sadly all your units got killed. U can try again with a different combination
     or go back to the main menu.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e0da5c8db9de3174b8549298ce9c676b, type: 2}

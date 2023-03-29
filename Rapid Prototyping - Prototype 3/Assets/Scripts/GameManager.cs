@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private List<Unit> units = new List<Unit>();
+    [SerializeField] UnitSpawner _spawnerRef;
+
+    [SerializeField] public List<Unit> enemyUnits = new List<Unit>();
 
     [SerializeField] GameObject _winScreen;
     [SerializeField] GameObject _loseScreen;
@@ -12,28 +14,53 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Unit[] unitArray = FindObjectsOfType<Unit>();
-        units.AddRange(unitArray);
+        Unit[] enemyUnitArray = FindObjectsOfType<Unit>();
+        enemyUnits.AddRange(enemyUnitArray);
     }
 
     void Update()
     {
-        bool enemyFound = false;
+        bool enemyFound = false; 
+        bool playerFound = false;
 
-        for (int i = units.Count - 1; i >= 0; i--)
+        for (int i = enemyUnits.Count - 1; i >= 0; i--)
         {
-            Unit unit = units[i];
+            Unit unit = enemyUnits[i];
 
             if (unit == null)
             {
                 // Remove destroyed units from the list
-                units.RemoveAt(i);
+                enemyUnits.RemoveAt(i);
                 continue;
             }
 
             if (unit.faction == Faction.Enemy)
             {
                 enemyFound = true;
+                break;
+            }
+
+            if (unit.faction == Faction.Player)
+            {
+                playerFound = true;
+                break;
+            }
+        }
+
+        for (int i = _spawnerRef.unitFactions.Count - 1; i >= 0; i--)
+        {
+            Unit unit = _spawnerRef.unitFactions[i];
+
+            if (unit == null)
+            {
+                // Remove destroyed units from the list
+                _spawnerRef.unitFactions.RemoveAt(i);
+                continue;
+            }
+
+            if (unit.faction == Faction.Player)
+            {
+                playerFound = true;
                 break;
             }
         }
@@ -43,10 +70,14 @@ public class GameManager : MonoBehaviour
             _winScreen.SetActive(true);
             _buttons.SetActive(false);
         }
-        else if (units.Count == 0)
+
+        if (_spawnerRef.gameHasStarted == true)
         {
-            _loseScreen.SetActive(true);
-            _buttons.SetActive(false);
+            if (!playerFound)
+            {
+                _loseScreen.SetActive(true);
+                _buttons.SetActive(true);
+            }
         }
     }
 }

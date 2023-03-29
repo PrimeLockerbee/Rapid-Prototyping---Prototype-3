@@ -5,18 +5,21 @@ using UnityEngine.EventSystems;
 
 public class UnitSpawner : MonoBehaviour
 {
+    [SerializeField] private GameManager _managerRef;
+
     public GameObject[] unitPrefabs;
     public int activeUnitIndex = 0;
 
+    public bool gameHasStarted = false;
     public GameObject startButton;
 
     private Camera mainCamera;
 
-    private List<GameObject> units = new List<GameObject>();
+    public List<GameObject> units = new List<GameObject>();
+    public List<Unit> unitFactions = new List<Unit>();
 
     private void Start()
     {
-
         mainCamera = Camera.main;
     }
 
@@ -48,10 +51,12 @@ public class UnitSpawner : MonoBehaviour
     {
         GameObject unit = Instantiate(unitPrefabs[activeUnitIndex], position, Quaternion.identity);
         units.Add(unit);
+        unitFactions.Add(unit.GetComponent<Unit>());
     }
 
     public void StartGame()
     {
+        gameHasStarted = true;
         Unit[] allUnits = FindObjectsOfType<Unit>();
         foreach (Unit unit in allUnits)
         {
